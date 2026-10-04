@@ -1,0 +1,109 @@
+SW-1#show running-config
+Building configuration...
+
+Current configuration : 3380 bytes
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW-1
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$EOBL$7gR62IQrgZzPHK3GYiHwR/
+!
+username Admin privilege 15 secret 5 $1$3fuh$r0UP0QaCV8nUWs9el86UD/
+no aaa new-model
+!
+no ip domain-lookup
+ip domain-name red.local
+ip cef
+no ipv6 cef
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface GigabitEthernet0/0
+ switchport trunk allowed vlan 1,10
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security maximum 2
+ switchport port-security violation restrict
+ switchport port-security
+ negotiation auto
+!
+interface GigabitEthernet0/2
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security maximum 2
+ switchport port-security violation restrict
+ switchport port-security
+ negotiation auto
+!
+interface GigabitEthernet0/3
+ negotiation auto
+!
+interface GigabitEthernet1/0
+ negotiation auto
+!
+interface GigabitEthernet1/1
+ negotiation auto
+!
+interface GigabitEthernet1/2
+ negotiation auto
+!
+interface GigabitEthernet1/3
+ negotiation auto
+!
+interface GigabitEthernet2/0
+ negotiation auto
+!
+interface GigabitEthernet2/1
+ negotiation auto
+!
+interface GigabitEthernet2/2
+ negotiation auto
+!
+interface GigabitEthernet2/3
+ negotiation auto
+!
+interface GigabitEthernet3/0
+ negotiation auto
+!
+interface GigabitEthernet3/1
+ negotiation auto
+!
+interface GigabitEthernet3/2
+ negotiation auto
+!
+interface GigabitEthernet3/3
+ negotiation auto
+!
+ip forward-protocol nd
+!
+ip http server
+ip http secure-server
+!
+ip ssh version 2
+!
+control-plane
+!
+banner motd ^CLisbeth Gomez 2025-0701^C
+!
+line con 0
+ login local
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+end
