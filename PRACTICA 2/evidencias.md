@@ -6,250 +6,238 @@
 
 <p align="center">
   <em>Capturas de pantalla y registros que respaldan cada configuración y prueba realizada.</em><br>
-  Volver al <a href="../README.md">README principal</a>
 </p>
 
 ---
 
+
 ## 📑 Índice de evidencias
 
-| # | Sección | Estado |
-| :---: | :--- | :---: |
-| 1 | [FortiGate — Configuración](#1-fortigate--configuración) | 🔄 |
-| 2 | [Switch — Configuración](#2-switch--configuración) | 🔄 |
-| 3 | [WEB-Server](#3-web-server) | 🔄 |
-| 4 | [DB-Server](#4-db-server) | 🔄 |
-| 5 | [Pruebas de conectividad y políticas](#5-pruebas-de-conectividad-y-políticas) | 🔄 |
-| 6 | [Protección del WEB-Server (DPI, SQLi, cuarentena)](#6-protección-del-web-server) | 🔄 |
-| 7 | [Filtrado de archivos .exe](#7-filtrado-de-archivos-exe) | ✅ |
-| 8 | [Rate limiting / DoS](#8-rate-limiting--dos) | 🔄 |
+| # | Sección | Contenido | Estado |
+| :---: | :--- | :--- | :---: |
+| 1 | [FortiGate — Configuración](#1-fortigate--configuración) | Interfaces, ruta, NAT, objetos, políticas, DHCP, IPS, File Filter y DoS | ✅ |
+| 2 | [Switch — Configuración](#2-switch--configuración) | VLAN y Port-security | ✅ |
+| 3 | [WEB-Server](#3-web-server) | Sitio cargando y configuración de red | ✅ |
+| 4 | [DB-Server](#4-db-server) | Servicio activo y configuración de red | ✅ |
+| 5 | [Pruebas de conectividad y políticas](#5-pruebas-de-conectividad-y-políticas) | NAT, HTTPS, bloqueos y acceso al puerto 3306 | ✅ |
+| 6 | [Protección del WEB-Server](#6-protección-del-web-server) | SQLi, log de IPS y cuarentena | ✅ |
+| 7 | [Filtrado de archivos .exe](#7-filtrado-de-archivos-exe) | Descarga bloqueada | ✅ |
+| 8 | [Rate limiting / DoS](#8-rate-limiting--dos) | Ráfaga de tráfico y detección | ✅ |
 
-> Cambia el ícono de cada fila a ✅ conforme vayas subiendo la evidencia real de esa sección.
 
----
-
-## 1. FortiGate — Configuración
-
-### 1.1 Interfaces
-<!-- ![Interfaces](../screenshots/fortigate/01-interfaces.png) -->
-
-Captura de **Network > Interfaces** mostrando `port1`, `port2.10`, `port3` y `port4` con sus direcciones IP configuradas.
 
 ---
 
-### 1.2 Ruta por defecto
-<!-- ![Ruta por defecto](../screenshots/fortigate/02-ruta-defecto.png) -->
+## 1. FortiGate — Configuración 
 
-Captura de **Network > Static Routes**, o de la salida `get router info routing-table all`, mostrando la ruta `0.0.0.0/0` vía `port1`.
+### 1.1 Interfaces 
 
----
+ <img width="527" height="213" alt="image" src="https://github.com/user-attachments/assets/b0d0fb30-a15b-4ef6-b515-7b453ab73c85" />
 
-### 1.3 NAT
-<!-- ![NAT](../screenshots/fortigate/03-nat-policy.png) -->
-
-Política `USERS-TO-INTERNET` con la opción NAT activada (Use Outgoing Interface Address).
 
 ---
 
-### 1.4 Objetos de red
-<!-- ![Objetos](../screenshots/fortigate/04-objetos-direccion.png) -->
+### 1.2 Ruta por defecto 
 
-**Policy & Objects > Addresses** mostrando `Red-Usuarios`, `WEB-Server` y `DB-Server`.
-
----
-
-### 1.5 Tabla de políticas
-<!-- ![Políticas](../screenshots/fortigate/05-tabla-politicas.png) -->
-
-Tabla completa de **Firewall Policy** con las 4 políticas en el orden correcto de evaluación.
+<img width="1122" height="133" alt="image" src="https://github.com/user-attachments/assets/d7958afd-3367-43ff-8842-3c3aa5a8c07d" />
+ 
 
 ---
 
-### 1.6 Servidor DHCP
-<!-- ![DHCP](../screenshots/fortigate/06-dhcp-server.png) -->
+### 1.3 NAT 
 
-Configuración del DHCP Server en `port2.10`, rango `10.7.1.10 – 10.7.1.120`.
+<img width="1115" height="140" alt="image" src="https://github.com/user-attachments/assets/82b716e3-9a8a-415a-b1f6-1b06e6a11c4a" />
 
----
-
-### 1.7 Perfil DPI
-<!-- ![DPI](../screenshots/fortigate/07-dpi-perfil.png) -->
-
-Perfil **SSL/SSH Inspection** en modo Full SSL Inspection.
 
 ---
 
-### 1.8 Sensor IPS
-<!-- ![IPS](../screenshots/fortigate/08-ips-sensor.png) -->
+### 1.4 Objetos de red 
 
-Sensor `IPS-SQLI` con la firma de SQL Injection y la acción configurada (Block / Quarantine).
+<img width="402" height="142" alt="image" src="https://github.com/user-attachments/assets/5cdb67af-a51c-47ab-8b94-d2a8dd82b155" />
 
----
-
-### 1.9 File Filter
-<!-- ![File Filter](../screenshots/fortigate/09-file-filter.png) -->
-
-Perfil `BLOCK-EXE` con la regla sobre archivos `.exe` vía HTTP.
 
 ---
 
-### 1.10 DoS Policy
-<!-- ![DoS Policy](../screenshots/fortigate/10-dos-policy.png) -->
+### 1.5 Tabla de políticas 
 
-**Policy & Objects > IPv4 DoS Policy** con los umbrales de anomalía configurados.
+<img width="1107" height="233" alt="image" src="https://github.com/user-attachments/assets/1aff7967-dc9e-4dd1-ac27-97f86e8f4774" />
 
----
-
-## 2. Switch — Configuración
-
-### 2.1 Running-config
-<!-- ![Running-config](../screenshots/switch/01-running-config.png) -->
-
-Salida completa de `show running-config` en la consola de SW-1.
 
 ---
 
-### 2.2 VLAN
-<!-- ![VLAN](../screenshots/switch/02-vlan-brief.png) -->
+### 1.6 Servidor DHCP 
 
-Salida de `show vlan brief` mostrando la VLAN 10 con sus puertos asignados.
+<img width="477" height="390" alt="image" src="https://github.com/user-attachments/assets/29687b29-211b-4720-9e4b-05813912dcbf" />
 
 ---
 
-### 2.3 Port-security
-<!-- ![Port-security](../screenshots/switch/03-port-security.png) -->
 
-Salida de `show port-security interface` para los puertos de usuarios.
+
+### 1.7 Sensor IPS 
+
+
+<img width="747" height="461" alt="image" src="https://github.com/user-attachments/assets/3afbaf36-86c1-46d2-b3b3-ac2c0f03e3fa" />
+
+
+---
+
+### 1.8 File Filter 
+
+<img width="553" height="331" alt="image" src="https://github.com/user-attachments/assets/a5070278-d535-4b23-9b90-dfbb493eb827" />
+
+
+---
+
+
+### 1.9 DoS Policy 
+
+<img width="1092" height="106" alt="image" src="https://github.com/user-attachments/assets/cc7ad1b1-6b07-48fd-a799-0aca70cb3892" />
+
+
+---
+
+
+## 2. Switch — Configuración 
+
+
+### 2.1 VLAN 
+
+<img width="518" height="155" alt="image" src="https://github.com/user-attachments/assets/7740fe3d-52d9-4fea-80b2-29aeb5f230ad" />
+
+
+---
+
+
+### 2.2 Port-security 
+
+<img width="512" height="162" alt="image" src="https://github.com/user-attachments/assets/125578d0-a786-4d12-ac72-693ea8563104" />
+
 
 ---
 
 ## 3. WEB-Server
 
-### 3.1 Sitio cargando
-<!-- ![WEB-Server](../screenshots/web-server/01-pagina-https.png) -->
+### 3.1 Sitio cargando 
 
-Página del WEB-Server cargando correctamente vía `https://10.7.1.130`.
+<img width="1026" height="633" alt="Captura de pantalla 2026-09-25 072051" src="https://github.com/user-attachments/assets/1e6d3b2d-935b-49ca-ba61-e8a55f8bef4e" />
 
 ---
 
-### 3.2 Configuración de red
-<!-- ![Red WEB-Server](../screenshots/web-server/02-configuracion-red.png) -->
+### 3.2 Configuración de red 
 
-IP configurada dentro del contenedor/VM del WEB-Server.
+<img width="315" height="82" alt="image" src="https://github.com/user-attachments/assets/2d6a529e-f264-432c-bea2-8f1a6685463d" />
+
 
 ---
 
 ## 4. DB-Server
 
-### 4.1 Servicio activo
-<!-- ![DB-Server activo](../screenshots/db-server/01-servicio-mariadb.png) -->
+### 4.1 Servicio activo 
 
-Servicio MariaDB corriendo dentro del DB-Server.
+
+<img width="643" height="212" alt="Captura de pantalla 2026-09-25 195218" src="https://github.com/user-attachments/assets/9174e17c-0f09-4be0-b42d-0b8d1ea4d033" />
+
 
 ---
 
-### 4.2 Configuración de red
-<!-- ![Red DB-Server](../screenshots/db-server/02-configuracion-red.png) -->
+### 4.2 Configuración de red 
 
-IP configurada dentro del contenedor/VM del DB-Server.
+<img width="196" height="95" alt="image" src="https://github.com/user-attachments/assets/9d6ba2ad-c66f-48ff-b6dc-bcc628ae49a1" />
+
 
 ---
 
 ## 5. Pruebas de conectividad y políticas
 
-### 5.1 NAT / Salida a Internet — ✅ Confirmado
-<!-- ![Ping Internet](../screenshots/tests/01-nat-ping-internet.png) -->
+### 5.1 NAT / Salida a Internet 
 
-`ping 8.8.8.8` desde la PC de usuarios, con respuesta exitosa.
+<img width="501" height="122" alt="Captura de pantalla 2026-09-25 153557" src="https://github.com/user-attachments/assets/26da7d6e-faf3-49ab-a43c-18c0539591a2" />
 
----
-
-### 5.2 Acceso HTTPS al WEB-Server — ✅ Confirmado
-<!-- ![HTTPS WEB-Server](../screenshots/tests/02-https-web-cargando.png) -->
-<!-- ![Log Accept](../screenshots/tests/02-log-accept-web.png) -->
-
-Página cargando en el navegador + log de **Forward Traffic** con resultado *Accept* bajo la política `WEB-TO-USUARIOS`.
 
 ---
 
-### 5.3 Bloqueo Usuarios → DB-Server — ✅ Confirmado
-<!-- ![PowerShell Deny](../screenshots/tests/03-block-db-powershell.png) -->
-<!-- ![Log Deny](../screenshots/tests/03-log-deny-db.png) -->
+### 5.2 Acceso HTTPS al WEB-Server 
 
-`Test-NetConnection -Port 3306` con `TcpTestSucceeded: False` + log *Deny* bajo `BLOQUEO-USER-DB`.
 
----
+<img width="1026" height="633" alt="Captura de pantalla 2026-09-25 072051" src="https://github.com/user-attachments/assets/216d6d26-bef3-400d-8e98-3b674379a3bd" />
 
-### 5.4 WEB-Server → DB-Server (3306 permitido) — ✅ Confirmado
-<!-- ![Web a DB 3306](../screenshots/tests/04-web-a-db-3306-ok.png) -->
 
-Conexión TCP exitosa desde la consola del WEB-Server hacia el puerto 3306 del DB-Server.
+<img width="817" height="527" alt="Captura de pantalla 2026-09-24 230221" src="https://github.com/user-attachments/assets/29c1f800-f263-4dbc-b867-5c21cadd87aa" />
+
 
 ---
 
-### 5.5 Bloqueo WEB-Server → otros puertos — ✅ Confirmado
-<!-- ![Web a DB bloqueado](../screenshots/tests/05-web-a-db-otro-bloqueado.png) -->
+### 5.3 Bloqueo Usuarios → DB-Server 
 
-Conexión fallida desde el WEB-Server hacia el puerto 22 (u otro distinto de 3306) del DB-Server.
+<img width="517" height="225" alt="Captura de pantalla 2026-09-25 200004" src="https://github.com/user-attachments/assets/bc73f98e-9427-4ae0-9fbb-60708cc62aa4" />
+
+
+<img width="1272" height="320" alt="Captura de pantalla 2026-09-25 195912" src="https://github.com/user-attachments/assets/dfa35608-237e-41cb-a550-401c97791932" />
+
+
+---
+
+### 5.4 WEB-Server → DB-Server (3306 permitido) 
+
+<img width="567" height="36" alt="image" src="https://github.com/user-attachments/assets/67dbbede-43e2-4e64-94dd-58b38ab0989e" />
+
+
+---
+
+### 5.5 Bloqueo WEB-Server → otros puertos 
+
+<img width="237" height="36" alt="image" src="https://github.com/user-attachments/assets/fa816de2-7591-4c7e-b56a-71179cc87904" />
+
 
 ---
 
 ## 6. Protección del WEB-Server
 
-### 6.1 DPI — Certificado interceptado
-<!-- ![Certificado DPI](../screenshots/tests/06-dpi-certificado.png) -->
+### 6.1 Payload de SQL Injection bloqueado 
 
-Certificado del sitio visto desde el navegador, mostrando que fue emitido por Fortinet.
+<img width="933" height="331" alt="image" src="https://github.com/user-attachments/assets/6804e5c3-e30a-4ba1-9b4b-916ff18a049e" />
 
----
-
-### 6.2 Payload de SQL Injection bloqueado
-<!-- ![SQLi payload](../screenshots/tests/07-sqli-payload-bloqueado.png) -->
-
-Solicitud con el payload `' OR '1'='1` rechazada por el FortiGate.
 
 ---
 
-### 6.3 Log de IPS
-<!-- ![Log IPS](../screenshots/tests/07-ips-log.png) -->
+### 6.2 Log de IPS 
 
-**Log & Report > Intrusion Prevention** con el evento detectado y la firma que hizo match.
+<img width="1305" height="333" alt="Captura de pantalla 2026-09-25 201715" src="https://github.com/user-attachments/assets/36d38204-29f8-4df6-94b3-1dd8db32978c" />
+
 
 ---
 
-### 6.4 Cuarentena del atacante
-<!-- ![Cuarentena](../screenshots/tests/07-cuarentena.png) -->
+### 6.3 Cuarentena del atacante 
 
-**Dashboard > Quarantine** mostrando la IP atacante en cuarentena.
+<img width="1233" height="461" alt="Captura de pantalla 2026-09-25 202315" src="https://github.com/user-attachments/assets/18cffc1d-92ba-4580-ad26-6761de23a0d6" />
+
 
 ---
 
 ## 7. Filtrado de archivos .exe
 
-### 7.1 Descarga bloqueada — ✅ Confirmado
+### 7.1 Descarga bloqueada 
 
-![Descarga .exe bloqueada](../screenshots/tests/08-exe-bloqueado.png)
+<img width="590" height="366" alt="image" src="https://github.com/user-attachments/assets/168da10d-7d52-4930-83ec-d7ca119f5d88" />
 
-Al intentar descargar `test.exe` desde `https://10.7.1.130/prueba.exe`, la conexión fue interrumpida por el FortiGate (`ERR_CONNECTION_RESET`), confirmando que el perfil File Filter `BLOCK-EXE` bloqueó la descarga correctamente.
 
 ---
 
 ## 8. Rate limiting / DoS
 
-### 8.1 Ráfaga de tráfico generada
-<!-- ![Flood cliente](../screenshots/tests/09-dos-flood-cliente.png) -->
+### 8.1 Ráfaga de tráfico generada 
 
-Consola de la PC de usuarios generando la ráfaga de conexiones/paquetes de prueba.
+<img width="573" height="512" alt="Captura de pantalla 2026-09-25 203532" src="https://github.com/user-attachments/assets/43ec8859-27cf-4a59-bc58-ff3b6b82a0a5" />
 
 ---
 
-### 8.2 Detección de la anomalía
-<!-- ![Log Anomaly](../screenshots/tests/09-dos-log-anomaly.png) -->
+### 8.2 Detección de la anomalía 
 
-**Log & Report > Anomaly** mostrando la detección del umbral superado y la acción de bloqueo aplicada.
+
+<img width="1346" height="270" alt="Captura de pantalla 2026-09-25 173854" src="https://github.com/user-attachments/assets/1deb318e-29bf-417c-bdc7-855a005ff12c" />
+
 
 ---
 
 <p align="center">
-  <sub>Cómo agregar una captura: sube la imagen a <code>screenshots/&lt;carpeta&gt;/</code> con el nombre indicado, y en este archivo quita el <code>&lt;!--</code> y <code>--&gt;</code> que envuelve la línea de la imagen correspondiente para que se muestre.</sub>
-</p>
+ 
