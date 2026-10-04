@@ -162,7 +162,30 @@ end
 
 SW-1 conmuta únicamente el segmento de usuarios — los servidores ya no pasan por el switch, se conectan directo al FortiGate.
 
-#### Puerto G0/0 — Trunk hacia FortiGate
+#### Configuración básica
+
+```text
+enable
+config t
+no ip domain-lookup
+hostname Switch
+banner motd #Lisbeth Gomez 2025-0701#
+username Admin privilege 15 secret cisco
+enable secret cisco
+line console 0
+ login local
+exit
+ip domain-name red.local
+crypto key generate rsa modulus 2048
+ip ssh version 2
+line vty 0 4
+ login local
+ transport input ssh
+exit
+```
+
+
+####  Puerto G0/0 — Trunk hacia FortiGate
 
 ```text
 interface GigabitEthernet0/0
@@ -172,6 +195,7 @@ interface GigabitEthernet0/0
  switchport trunk allowed vlan 1,10
 exit
 ```
+
 
 #### Puerto G0/1 — PC1 (VPCS)
 
@@ -196,6 +220,35 @@ interface GigabitEthernet0/2
  switchport port-security violation restrict
 exit
 ```
+
+
+#### Puerto G0/3, en VLAN 10
+
+```text
+interface GigabitEthernet0/3
+ switchport mode access
+ switchport access vlan 10
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security violation restrict
+ shutdown
+exit
+```
+
+#### Puerto G1/0, con PortFast y BPDU Guard
+
+```text
+interface GigabitEthernet1/0
+ switchport mode access
+ switchport access vlan 10
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security violation restrict
+ spanning-tree portfast edge
+ spanning-tree bpduguard enable
+exit
+```
+
 
 Todos los demás puertos del switch permanecen sin conectar (`notconnect`).
 
