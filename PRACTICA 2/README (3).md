@@ -340,16 +340,16 @@ Se configuró **limitación de tráfico** (IPv4 DoS Policy) para reducir el impa
 
 | # | Prueba | Procedimiento | Resultado |
 | :---: | :--- | :--- | :---: |
-| 1 | NAT / Salida a Internet | `ping 8.8.8.8` desde PC de usuarios | ✅ Confirmado |
-| 2 | Acceso HTTPS al WEB-Server | Navegador → `https://10.7.1.130` | ✅ Confirmado |
-| 3 | Bloqueo Usuarios → DB-Server | `Test-NetConnection -Port 3306` | ✅ Confirmado |
-| 4 | WEB-Server → DB-Server (3306) | Conexión TCP desde consola del WEB-Server | ✅ Confirmado |
-| 5 | Bloqueo WEB-Server → otros puertos | Conexión TCP a puerto 22 / destino externo | ✅ Confirmado |
-| 6 | DPI (SSL Inspection) | Verificación del emisor del certificado | 🔄 En proceso |
-| 7 | Detección de SQL Injection | Payload `' OR '1'='1` vía navegador | 🔄 En proceso |
-| 8 | Cuarentena del atacante | Dashboard > Quarantine | 🔄 En proceso |
-| 9 | Bloqueo de descarga .exe | `test.exe` desde el navegador | ✅ Confirmado |
-| 10 | Rate limiting / DoS | Ráfaga de conexiones desde PC de usuarios | 🔄 En proceso |
+| 1 | NAT / Salida a Internet | `ping 8.8.8.8` desde PC de usuarios 
+| 2 | Acceso HTTPS al WEB-Server | Navegador → `https://10.7.1.130` 
+| 3 | Bloqueo Usuarios → DB-Server | `Test-NetConnection -Port 3306` 
+| 4 | WEB-Server → DB-Server (3306) | Conexión TCP desde consola del WEB-Server 
+| 5 | Bloqueo WEB-Server → otros puertos | Conexión TCP a puerto 22 / destino externo 
+| 6 | DPI (SSL Inspection) | Verificación del emisor del certificado 
+| 7 | Detección de SQL Injection | Payload `' OR '1'='1` vía navegador 
+| 8 | Cuarentena del atacante | Dashboard > Quarantine 
+| 9 | Bloqueo de descarga .exe | `test.exe` desde el navegador 
+| 10 | Rate limiting / DoS | Ráfaga de conexiones desde PC de usuarios 
 
 ---
 
@@ -363,7 +363,6 @@ Se configuró **limitación de tráfico** (IPv4 DoS Policy) para reducir el impa
 | DB-Server | Servicio MariaDB activo, configuración de red | `screenshots/db-server/` |
 | Pruebas | Evidencia de cada validación (tabla anterior) | `screenshots/tests/` |
 
-*(Insertar aquí las miniaturas o enlaces directos a cada imagen conforme se vayan subiendo)*
 
 ---
 
